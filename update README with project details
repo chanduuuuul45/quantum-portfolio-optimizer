@@ -1,0 +1,15 @@
+# Quantum Portfolio Optimizer
+
+## Problem Statement
+Select the best stocks from 4 Indian companies to maximize profit & minimize risk.
+
+## Result
+![Result](Screenshot 2026-08-17 171002.p...)
+
+## How to Run
+```bash
+pip install qiskit qiskit-algorithms qiskit-optimization numpy
+python portfolio.py
+![Result](Screenshot 2026-08-17 171002.p...)` 
+
+
