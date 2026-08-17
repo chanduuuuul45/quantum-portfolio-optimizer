@@ -36,10 +36,3 @@ solver = NumPyMinimumEigensolver()
 meo = MinimumEigenOptimizer(solver)
 result = meo.solve(qubo)
 
-# Result
-print("\n=== Portfolio Optimization Result ===")
-selected = [stocks[i] for i, val in enumerate(result.x) if val > 0.5]
-print("Selected Stocks:", selected)
-print("Objective Value:", round(result.fval, 2))
-print("\n✨ Success! No more errors! ✨")
-print("Note: Idi classical solver. Real quantum kosam IBM quantum use cheyyali")
