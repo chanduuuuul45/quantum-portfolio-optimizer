@@ -7,11 +7,9 @@ from qiskit_optimization.converters import QuadraticProgramToQubo
 from qiskit_algorithms import NumPyMinimumEigensolver
 import numpy as np
 
-# 4 stocks data
 stocks = ['TCS', 'INFY', 'RELIANCE', 'HDFC']
-expected_returns = np.array([0.10, 0.15, 0.08, 0.12]) # photo lo 2 numbers eh unnayi, nenu 4 complete chesa
+expected_returns = np.array([0.10, 0.15, 0.08, 0.12]) 
 
-# cov_matrix = risk table. row x column = 4x4 undali
 cov_matrix = np.array([
     [0.04, 0.01, 0.02, 0.01],
     [0.01, 0.03, 0.01, 0.02],
@@ -19,19 +17,18 @@ cov_matrix = np.array([
     [0.01, 0.02, 0.01, 0.06]
 ])
 
-# Problem create
+
 qp = QuadraticProgram('Portfolio')
 for i in range(len(stocks)):
     qp.binary_var(name=f'x_{i}')
 
-budget = 1 # exactly 1 stock select cheyali. 2 cheyali ante 2 pettu
+budget = 1 
 qp.minimize(linear=-expected_returns, quadratic=0.5*cov_matrix)
 qp.linear_constraint(linear=[1]*len(stocks), sense='==', rhs=budget)
 
-# QUBO ga marchu
 qubo = QuadraticProgramToQubo().convert(qp)
 
-# FIX: QAOA vadakunda direct Classical solver
+
 solver = NumPyMinimumEigensolver()
 meo = MinimumEigenOptimizer(solver)
 result = meo.solve(qubo)
